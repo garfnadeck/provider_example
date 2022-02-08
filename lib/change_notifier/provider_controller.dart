@@ -18,7 +18,6 @@ class ProviderController extends ChangeNotifier {
     name = 'Susana';
     imgAvatar =
         'https://cdn.pixabay.com/photo/2012/04/18/15/20/nurse-37322_960_720.png';
-    birthDate = '19/07/1988';
     notifyListeners();
   }
 }

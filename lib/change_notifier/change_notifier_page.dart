@@ -14,7 +14,7 @@ class _ChangeNotifierPageState extends State<ChangeNotifierPage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
-      await Future.delayed(Duration(seconds: 15));
+      await Future.delayed(Duration(seconds: 3));
       context.read<ProviderController>().alterarDados();
     });
   }
@@ -31,11 +31,11 @@ class _ChangeNotifierPageState extends State<ChangeNotifierPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Consumer<ProviderController>(
-                builder: (_, controller, __) {
+              Selector<ProviderController, String>(
+                selector: (_, controller) => controller.imgAvatar,
+                builder: (_, imgAvatar, __) {
                   return CircleAvatar(
-                      backgroundImage: NetworkImage(controller.imgAvatar),
-                      radius: 60);
+                      backgroundImage: NetworkImage(imgAvatar), radius: 60);
                 },
               ),
               SizedBox(
@@ -44,15 +44,16 @@ class _ChangeNotifierPageState extends State<ChangeNotifierPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Consumer<ProviderController>(
-                    builder: (_, controller, __) {
-                      return Text(context.watch<ProviderController>().name);
+                  Selector<ProviderController, String>(
+                    selector: (_, controller) => controller.name,
+                    builder: (_, name, __) {
+                      return Text(name);
                     },
                   ),
-                  Consumer<ProviderController>(
-                    builder: (_, controller, __) {
-                      return Text(
-                          context.watch<ProviderController>().birthDate);
+                  Selector<ProviderController, String>(
+                    selector: (_, controller) => controller.birthDate,
+                    builder: (_, birthDate, __) {
+                      return Text(birthDate);
                     },
                   ),
                 ],
